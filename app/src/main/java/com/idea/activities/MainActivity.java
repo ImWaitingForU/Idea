@@ -7,9 +7,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.RelativeLayout;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.idea.fragments.Tab1Fragment;
 import com.idea.fragments.Tab2Fragment;
@@ -21,26 +23,29 @@ import com.roughike.bottombar.BottomBarBadge;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabClickListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+		implements
+			View.OnClickListener {
 
 	private Toolbar toolbar;
 	private TextView title;
-	private RelativeLayout topBar;
 	private Fragment curFragment; // 代表当前显示的Fragment
 	private Tab1Fragment tab1Fragment;
 	private Tab2Fragment tab2Fragment;
 	private Tab3Fragment tab3Fragment;
 	private Tab4Fragment tab4Fragment;
+	private FloatingActionMenu fam;
+	private FloatingActionButton fab1;
+	private FloatingActionButton fab2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		initFab();
 		initFragment();
 		initToolbar();
 		initBottomBar(savedInstanceState);
-		initFab();
-
 	}
 
 	/**
@@ -73,17 +78,75 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
+	/**
+	 * 切换页面时改变FAB颜色
+	 * 
+	 * @param color
+	 */
+	private void switchFABColor(String color) {
+		fam.setMenuButtonColorNormal(Color.parseColor(color));
+		fab1.setColorNormal(Color.parseColor(color));
+		fab2.setColorNormal(Color.parseColor(color));
+	}
+
+	/**
+	 * 切换页面时修改Toolbar标题
+	 */
+	private void switchToolBarTitle(int color, String newTitle) {
+		toolbar.setBackgroundColor(getResources().getColor(color));
+		title.setText(newTitle);
+	}
+
 	private void initToolbar() {
 		toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+		assert toolbar != null;
 		toolbar.setTitle("");
 		setSupportActionBar(toolbar);
 		title = (TextView) findViewById(R.id.tv_title_main);
+		assert title != null;
 		title.setText("灵感广场");
 	}
 
 	private void initFab() {
-		FloatingActionMenu fam = (FloatingActionMenu) findViewById(R.id.fab_menu_main);
+		fam = (FloatingActionMenu) findViewById(R.id.fam_main);
+		assert fam != null;
+		fam.setClosedOnTouchOutside(true);
+		fab1 = (FloatingActionButton) findViewById(R.id.fab1);
+		fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+		assert fab1 != null;
+		fab1.setOnClickListener(this);
+		assert fab2 != null;
+		fab2.setOnClickListener(this);
+		fam.setOnMenuButtonClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+//				if (fam.isOpened ()){
+//					Toast.makeText (MainActivity.this, "请选择对应的功能", Toast.LENGTH_SHORT).show ();
+//				}
+				fam.toggle (true);
+			}
+		});
 
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+			case R.id.fab1 :
+				// TODO 点击跳转到记录灵感界面
+				Toast.makeText(MainActivity.this, "fab1Pressed",
+				               Toast.LENGTH_SHORT).show();
+				fam.toggle(true);
+				break;
+			case R.id.fab2 :
+				// TODO 点击跳转到记录想法界面
+				Toast.makeText(MainActivity.this, "fab2Pressed",
+						Toast.LENGTH_SHORT).show();
+				fam.toggle(true);
+				break;
+			default :
+				break;
+		}
 	}
 
 	private void initBottomBar(Bundle savedInstanceState) {
@@ -115,41 +178,37 @@ public class MainActivity extends AppCompatActivity {
 			public void onTabSelected(int position) {
 				switch (position) {
 					case 0 :
-						toolbar.setBackgroundColor(getResources().getColor(
-								R.color.bottom_tab1));
-						title.setText("灵感广场");
 						if (tab1Fragment == null) {
 							tab1Fragment = new Tab1Fragment();
 						}
+						switchToolBarTitle(R.color.bottom_tab1, "灵感");
 						switchFragment(curFragment, tab1Fragment);
+						switchFABColor("#E0572A");
 						break;
 					case 1 :
-						toolbar.setBackgroundColor(getResources().getColor(
-								R.color.bottom_tab2));
-						title.setText("想法");
 						if (tab2Fragment == null) {
 							tab2Fragment = new Tab2Fragment();
 						}
+						switchToolBarTitle(R.color.bottom_tab2, "想法");
 						switchFragment(curFragment, tab2Fragment);
+						switchFABColor("#468CC9");
 						break;
 					case 2 :
-						toolbar.setBackgroundColor(getResources().getColor(
-								R.color.bottom_tab3));
-						title.setText("消息");
 						if (tab3Fragment == null) {
 							tab3Fragment = new Tab3Fragment();
 						}
+						switchToolBarTitle(R.color.bottom_tab3, "消息");
 						switchFragment(curFragment, tab3Fragment);
+						switchFABColor("#609E79");
 						break;
 					case 3 :
-						toolbar.setBackgroundColor(getResources().getColor(
-								R.color.bottom_tab4));
-						title.setText("我的");
 						if (tab4Fragment == null) {
 							tab4Fragment = new Tab4Fragment();
-						}
-						switchFragment(curFragment, tab4Fragment);
 
+						}
+						switchToolBarTitle(R.color.bottom_tab4, "我的");
+						switchFragment(curFragment, tab4Fragment);
+						switchFABColor("#9B9B9B");
 						break;
 					default :
 						break;

@@ -53,59 +53,37 @@
 
 
     <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/fab_menu_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:layout_margin="16dp"
-        fab:menu_animationDelayPerItem="50"
-        fab:menu_backgroundColor="@android:color/transparent"
-        fab:menu_buttonSpacing="0dp"
-        fab:menu_colorNormal="#DA4336"
-        fab:menu_colorPressed="#E75043"
-        fab:menu_colorRipple="#99FFFFFF"
-        fab:menu_fab_hide_animation="@anim/my_hide_animation"
-        fab:menu_fab_show_animation="@anim/my_show_animation"
-        fab:menu_fab_size="normal"
-        fab:menu_icon="@drawable/fab_add"
-        fab:menu_labels_colorNormal="#333333"
-        fab:menu_labels_colorPressed="#444444"
-        fab:menu_labels_colorRipple="#66FFFFFF"
-        fab:menu_labels_cornerRadius="3dp"
-        fab:menu_labels_ellipsize="none"
-        fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
-        fab:menu_labels_margin="0dp"
-        fab:menu_labels_maxLines="-1"
-        fab:menu_labels_position="left"
-        fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
-        fab:menu_labels_showShadow="true"
-        fab:menu_labels_singleLine="false"
-        fab:menu_labels_style="@style/YourCustomLabelsStyle"
-        fab:menu_labels_textSize="14sp"
-        fab:menu_openDirection="up"
-        fab:menu_shadowColor="#66000000"
-        fab:menu_shadowRadius="4dp"
-        fab:menu_shadowXOffset="1dp"
-        fab:menu_shadowYOffset="3dp"
-        fab:menu_showShadow="true">
+        android:id="@+id/fam_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:elevation="4dp"
+        android:clipChildren="true"
+        app:menu_labels_ellipsize="end"
+        app:menu_colorNormal="#E0572A"
+        app:menu_labels_singleLine="true"
+        app:menu_backgroundColor="#ccffffff"
+        app:menu_fab_label="选择发表类型">
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fabmenu_item1"
+            android:id="@+id/fab2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:src="@drawable/ic_fabmenu_item1"
-            fab:fab_label="小灵感"
-            fab:fab_size="mini"/>
+            android:src="@drawable/ic_fab_item1"
+            app:fab_size="mini"
+            app:fab_label="记录灵感" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fabmenu_item2"
+            android:id="@+id/fab1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:src="@drawable/ic_fabmenu_item2"
-            fab:fab_label="大想法"
-            fab:fab_size="mini"/>
+            android:src="@drawable/ic_fab_item2"
+            app:fab_size="mini"
+            app:fab_label="记录想法" />
 
     </com.github.clans.fab.FloatingActionMenu>
 
